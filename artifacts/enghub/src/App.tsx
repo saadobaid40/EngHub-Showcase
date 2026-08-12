@@ -16,6 +16,7 @@ import Home from '@/pages/home';
 import Browse from '@/pages/browse';
 import ProjectDetail from '@/pages/project-detail';
 import SubmitProject from '@/pages/submit-project';
+import EditProject from '@/pages/edit-project';
 import Login from '@/pages/login';
 import Register from '@/pages/register';
 import Profile from '@/pages/profile';
@@ -37,6 +38,7 @@ function Router() {
             <Route path="/projects" component={Browse} />
             <Route path="/projects/:id" component={ProjectDetail} />
             <Route path="/submit" component={SubmitProject} />
+            <Route path="/projects/:id/edit" component={EditProject} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/profile" component={Profile} />

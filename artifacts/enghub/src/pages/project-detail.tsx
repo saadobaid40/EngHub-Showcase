@@ -37,6 +37,7 @@ import {
   MessageSquare,
   Clock,
   Share2,
+  Pencil,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
@@ -274,14 +275,23 @@ export default function ProjectDetail() {
                 {formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}
               </span>
               {isOwner && (
-                <button
-                  onClick={handleDeleteProject}
-                  disabled={deleteProjectMutation.isPending}
-                  className="ml-auto flex items-center gap-1 text-xs text-red-500 hover:text-red-700 dark:hover:text-red-400 sm:ml-0"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                  Delete project
-                </button>
+                <>
+                  <Link
+                    href={`/projects/${id}/edit`}
+                    className="ml-auto flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 sm:ml-0"
+                  >
+                    <Pencil className="h-3.5 w-3.5" />
+                    Edit project
+                  </Link>
+                  <button
+                    onClick={handleDeleteProject}
+                    disabled={deleteProjectMutation.isPending}
+                    className="flex items-center gap-1 text-xs text-red-500 hover:text-red-700 dark:hover:text-red-400"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                    Delete project
+                  </button>
+                </>
               )}
             </div>
           </div>

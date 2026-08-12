@@ -184,11 +184,11 @@ export default function Profile() {
                     asChild
                     variant="outline"
                     size="sm"
-                    className="border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+                    className="border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950"
                   >
-                    <Link href={`/projects/${project.id}`}>
+                    <Link href={`/projects/${project.id}/edit`}>
                       <Pencil className="mr-1.5 h-3.5 w-3.5" />
-                      View
+                      Edit
                     </Link>
                   </Button>
                   <Button
