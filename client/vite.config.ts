@@ -48,16 +48,16 @@ export default defineConfig({
       : []),
   ],
   resolve: {
-    alias: {
-      '@': path.resolve(import.meta.dirname, 'src'),
-      '@assets': path.resolve(
-        import.meta.dirname,
-        '..',
-        '..',
-        'attached_assets',
-      ),
-    },
+    alias: [
+      { find: 'react', replacement: path.resolve(import.meta.dirname, 'node_modules/react') },
+      { find: 'react-dom', replacement: path.resolve(import.meta.dirname, 'node_modules/react-dom') },
+      { find: '@', replacement: path.resolve(import.meta.dirname, 'src') },
+      { find: '@assets', replacement: path.resolve(import.meta.dirname, '..', 'attached_assets') },
+    ],
     dedupe: ['react', 'react-dom'],
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', '@tanstack/react-query'],
   },
   root: path.resolve(import.meta.dirname),
   build: {
@@ -71,6 +71,12 @@ export default defineConfig({
     allowedHosts: true,
     fs: {
       strict: true,
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
     },
   },
   preview: {

@@ -1,0 +1,1 @@
+- [Vite pnpm monorepo React+proxy fix](vite-pnpm-react-proxy.md) — pnpm monorepo needs explicit react aliases + optimizeDeps + server.proxy to avoid dual-React and broken API routing
