@@ -53,7 +53,7 @@ export function Navbar() {
           >
             Browse
           </Link>
-          {token && user && (
+          {token && (
             <Link
               href="/profile"
               className={`hidden sm:inline text-sm font-medium transition-colors hover:text-slate-900 dark:hover:text-slate-100 ${
@@ -74,11 +74,13 @@ export function Navbar() {
             {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
 
-          {token && user ? (
+          {token ? (
             <>
-              <span className="hidden text-sm font-medium text-slate-600 dark:text-slate-300 sm:inline-block" data-testid="text-username">
-                {user.username}
-              </span>
+              {user && (
+                <span className="hidden text-sm font-medium text-slate-600 dark:text-slate-300 sm:inline-block" data-testid="text-username">
+                  {user.username}
+                </span>
+              )}
               <Button asChild variant="default" className="shadow-sm">
                 <Link href="/submit" data-testid="link-nav-submit">Submit Project</Link>
               </Button>

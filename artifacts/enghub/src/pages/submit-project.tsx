@@ -102,7 +102,7 @@ export default function SubmitProject() {
         title: "Login required",
         description: "You must log in to submit a project.",
       });
-      setLocation("/login");
+      setLocation("/login?redirect=/submit");
     }
   }, [token, setLocation, toast]);
 

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useLocation, Link } from "wouter";
+import { useLocation, useSearch, Link } from "wouter";
 import { useLoginUser } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuthStore } from "@/store/auth";
@@ -25,8 +25,11 @@ const loginSchema = z.object({
 
 export default function Login() {
   const [, setLocation] = useLocation();
+  const search = useSearch();
   const { toast } = useToast();
   const setToken = useAuthStore((state: any) => state.setToken);
+
+  const redirectTo = new URLSearchParams(search).get("redirect") || "/";
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -48,7 +51,7 @@ export default function Login() {
             title: "Welcome back",
             description: `Logged in as ${res.user.username}`,
           });
-          setLocation("/");
+          setLocation(redirectTo);
         },
         onError: (error: any) => {
           toast({

@@ -25,7 +25,7 @@ export default function Profile() {
   useEffect(() => {
     if (!token) {
       toast({ title: "Login required", description: "Please log in to view your profile." });
-      setLocation("/login");
+      setLocation("/login?redirect=/profile");
     }
   }, [token]);
 
