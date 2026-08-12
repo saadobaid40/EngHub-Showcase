@@ -47,10 +47,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ربط الواجهة المبنية من مجلد client
-app.use(express.static(path.join(__dirname, '../../dist/public')));
+app.use(express.static(path.join(__dirname, '../client/dist/public')));
 
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../../dist/public/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/public/index.html'));
 });
 app.use(express.urlencoded({ extended: true }));
 
