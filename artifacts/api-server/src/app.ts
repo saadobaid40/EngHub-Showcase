@@ -25,7 +25,20 @@ app.use(
     },
   }),
 );
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (native mobile apps, curl, server-to-server)
+      if (!origin) return callback(null, true);
+      // Allow all Replit-hosted domains (dev previews, deployments, Expo web previews)
+      if (origin.endsWith(".replit.dev") || origin.endsWith(".repl.co")) {
+        return callback(null, true);
+      }
+      callback(null, false);
+    },
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
