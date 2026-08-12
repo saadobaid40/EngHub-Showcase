@@ -4,7 +4,6 @@ import { z } from "zod";
 import { useLocation, Link } from "wouter";
 import { useRegisterUser } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
-import { useAuthStore } from "@/store/auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,10 +27,6 @@ const registerSchema = z.object({
 export default function Register() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  // We don't automatically log in after registration in this flow,
-  // we just redirect to login page. Or we can log them in if the API returns a token.
-  // Wait, the API spec says `registerUser` returns `UserProfile`, not `AuthResponse`.
-  // So we must redirect to login.
 
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -67,24 +62,24 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] flex-col justify-center bg-slate-50 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-[calc(100vh-64px)] flex-col justify-center bg-slate-50 dark:bg-slate-950 py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm mb-4">
           <BookOpen className="h-6 w-6" />
         </div>
-        <h2 className="mt-2 text-center font-serif text-3xl font-semibold tracking-tight text-slate-900">
+        <h2 className="mt-2 text-center font-serif text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           Join the Archive
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-600">
+        <p className="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
           Already have an account?{" "}
-          <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500" data-testid="link-to-login">
+          <Link href="/login" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300" data-testid="link-to-login">
             Sign in here
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-sm ring-1 ring-slate-200 sm:rounded-xl sm:px-10">
+        <div className="bg-white dark:bg-slate-900 py-8 px-4 shadow-sm ring-1 ring-slate-200 dark:ring-slate-800 sm:rounded-xl sm:px-10">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-register">
               
@@ -93,9 +88,9 @@ export default function Register() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-700">Username</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="johndoe" {...field} className="bg-slate-50" data-testid="input-username" />
+                      <Input placeholder="johndoe" {...field} className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100" data-testid="input-username" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,9 +102,9 @@ export default function Register() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-700">Email address</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">Email address</FormLabel>
                     <FormControl>
-                      <Input placeholder="student@university.edu" {...field} className="bg-slate-50" data-testid="input-email" />
+                      <Input placeholder="student@university.edu" {...field} className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100" data-testid="input-email" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,11 +116,11 @@ export default function Register() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-700">Password</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">Password</FormLabel>
                     <FormControl>
-                      <Input type="password" {...field} className="bg-slate-50" data-testid="input-password" />
+                      <Input type="password" {...field} className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100" data-testid="input-password" />
                     </FormControl>
-                    <FormDescription>At least 6 characters</FormDescription>
+                    <FormDescription className="dark:text-slate-400">At least 6 characters</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

@@ -62,24 +62,24 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] flex-col justify-center bg-slate-50 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-[calc(100vh-64px)] flex-col justify-center bg-slate-50 dark:bg-slate-950 py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm mb-4">
           <BookOpen className="h-6 w-6" />
         </div>
-        <h2 className="mt-2 text-center font-serif text-3xl font-semibold tracking-tight text-slate-900">
+        <h2 className="mt-2 text-center font-serif text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-600">
+        <p className="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
           Or{" "}
-          <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500" data-testid="link-to-register">
+          <Link href="/register" className="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300" data-testid="link-to-register">
             create a new account
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-sm ring-1 ring-slate-200 sm:rounded-xl sm:px-10">
+        <div className="bg-white dark:bg-slate-900 py-8 px-4 shadow-sm ring-1 ring-slate-200 dark:ring-slate-800 sm:rounded-xl sm:px-10">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-login">
               <FormField
@@ -87,9 +87,9 @@ export default function Login() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-700">Email address</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">Email address</FormLabel>
                     <FormControl>
-                      <Input placeholder="student@university.edu" {...field} className="bg-slate-50" data-testid="input-email" />
+                      <Input placeholder="student@university.edu" {...field} className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100" data-testid="input-email" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,9 +101,9 @@ export default function Login() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-slate-700">Password</FormLabel>
+                    <FormLabel className="text-slate-700 dark:text-slate-300">Password</FormLabel>
                     <FormControl>
-                      <Input type="password" {...field} className="bg-slate-50" data-testid="input-password" />
+                      <Input type="password" {...field} className="bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100" data-testid="input-password" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
