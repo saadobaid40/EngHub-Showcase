@@ -62,7 +62,8 @@ router.get("/projects", async (req, res): Promise<void> => {
     conditions.push(
       or(
         ilike(projectsTable.title, `%${search}%`),
-        ilike(projectsTable.description, `%${search}%`)
+        ilike(projectsTable.description, `%${search}%`),
+        ilike(projectsTable.componentsTags, `%${search}%`)
       )
     );
   }

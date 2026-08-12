@@ -2,7 +2,21 @@ import { useGetPlatformStats, useGetTrendingProjects, useGetCourseBreakdown } fr
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Users, Cpu, FileText, ChevronRight } from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
+import { ProjectCard } from "@/components/project-card";
+
+const COURSES = [
+  "Creativity in Engineering Design",
+  "Digital Logic Design",
+  "Electronics",
+  "Electromagnetic Field Theory",
+  "Signals and Systems",
+  "Electrical Power System",
+  "Communication Theory",
+  "Microprocessor",
+  "Senior Design Project (SDP)",
+  "Control Theory",
+  "Other"
+];
 
 export default function Home() {
   const { data: stats } = useGetPlatformStats();
@@ -107,36 +121,7 @@ export default function Home() {
               
               <div className="grid gap-6 sm:grid-cols-2">
                 {trending?.map((project) => (
-                  <Link href={`/projects/${project.id}`} key={project.id} className="group block h-full" data-testid={`link-project-${project.id}`}>
-                    <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-md hover:ring-slate-300">
-                      <div className="aspect-video w-full overflow-hidden bg-slate-100">
-                        {project.imageUrl ? (
-                          <img 
-                            src={project.imageUrl} 
-                            alt={project.title} 
-                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" 
-                            data-testid={`img-project-${project.id}`}
-                          />
-                        ) : (
-                          <div className="flex h-full items-center justify-center bg-slate-100 text-slate-400">
-                            <Cpu className="h-12 w-12 opacity-50" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex flex-1 flex-col p-6">
-                        <div className="mb-2 flex items-center justify-between text-xs text-slate-500">
-                          <span className="font-medium text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full">{project.courseName || 'Independent'}</span>
-                          <span>{project.upvotes} upvotes</span>
-                        </div>
-                        <h3 className="mb-2 font-serif text-xl font-medium text-slate-900 line-clamp-1">{project.title}</h3>
-                        <p className="mb-4 text-sm text-slate-600 line-clamp-2 flex-1">{project.description}</p>
-                        <div className="mt-auto flex items-center justify-between text-xs text-slate-500 border-t border-slate-100 pt-4">
-                          <span>By {project.authorUsername}</span>
-                          <span>{formatDistanceToNow(new Date(project.createdAt), { addSuffix: true })}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
+                  <ProjectCard key={project.id} project={project as any} />
                 ))}
                 
                 {(!trending || trending.length === 0) && (
@@ -152,24 +137,29 @@ export default function Home() {
               <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
                 <h3 className="mb-6 font-serif text-2xl font-semibold text-slate-900">Course Index</h3>
                 <div className="space-y-1">
-                  {courseBreakdown?.map((course) => (
-                    <Link 
-                      href={`/projects?course_name=${encodeURIComponent(course.courseName)}`} 
-                      key={course.courseName}
-                      className="group flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-slate-50"
-                      data-testid={`link-course-${course.courseName}`}
-                    >
-                      <span className="font-medium text-slate-700 group-hover:text-blue-600">{course.courseName}</span>
-                      <div className="flex items-center gap-2">
-                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{course.count}</span>
-                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
-                      </div>
-                    </Link>
-                  ))}
-                  
-                  {(!courseBreakdown || courseBreakdown.length === 0) && (
-                    <p className="text-sm text-slate-500 py-4 text-center">No courses found.</p>
-                  )}
+                  {COURSES.map((course) => {
+                    const count = courseBreakdown?.find(c => c.courseName === course)?.count;
+                    return (
+                      <Link 
+                        href={`/projects?course_name=${encodeURIComponent(course)}`} 
+                        key={course}
+                        className="group flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors hover:bg-slate-50"
+                        data-testid={`link-course-${course}`}
+                      >
+                        <span className="font-medium text-slate-700 group-hover:text-blue-600">{course}</span>
+                        {count ? (
+                          <div className="flex items-center gap-2">
+                            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">{count}</span>
+                            <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                            <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-blue-600" />
+                          </div>
+                        )}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
               
